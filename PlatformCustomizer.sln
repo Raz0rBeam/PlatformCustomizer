@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlatformCustomizer", "PlatformCustomizer\PlatformCustomizer.csproj", "{DA3B7807-6AFB-47ED-AFEB-275BFA70F1F1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA3B7807-6AFB-47ED-AFEB-275BFA70F1F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA3B7807-6AFB-47ED-AFEB-275BFA70F1F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA3B7807-6AFB-47ED-AFEB-275BFA70F1F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA3B7807-6AFB-47ED-AFEB-275BFA70F1F1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {67A6FC87-EDB0-4039-9E25-66F7DC3087C9}
+	EndGlobalSection
+EndGlobal
