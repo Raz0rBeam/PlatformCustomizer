@@ -30,8 +30,8 @@ namespace PlatformCustomizer
             Instance = this;
             PluginConfig.Instance = conf.Generated<PluginConfig>();
             
-            zenject.Install<PCInstaller>(Location.StandardPlayer, config);
-            zenject.Install(Location.Menu, Container => Container.BindInterfacesTo<SettingsHost>().AsSingle());
+            zenject.Install<PCInstaller>(Location.StandardPlayer);
+            zenject.Install(Location.Menu, Container => Container.BindInterfacesTo<SettingsHostFlowCoordinator>().AsSingle());
 
 
             Log.Info("Yippee!");
@@ -48,6 +48,18 @@ namespace PlatformCustomizer
             {
                 Log.Info("Yippee!");
             }
+        }
+
+        [OnEnable]
+        public void OnEnable()
+        {
+            BsmlWrapper.EnableUI();
+        }
+
+        [OnDisable]
+        public void OnDisable()
+        {
+            BsmlWrapper.DisableUI();
         }
     }
 }

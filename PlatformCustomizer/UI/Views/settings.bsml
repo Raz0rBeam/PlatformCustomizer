@@ -1,5 +1,13 @@
 ﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
-  <settings-container>
-    <bool-setting value='enable' apply-on-change='true' text='Enable Mod'/>
-  </settings-container>
+    <vertical anchor-pos-x='0' anchor-pos-y='15' horizontal-fit='PreferredSize' vertical-fit='PreferredSize' pad="3" background="round-rect-panel" background-color="#FFFFFFAA">
+          <bool-setting value='enable' apply-on-change='true' text='Enable Mod'/>
+          <slider-setting value='platform-width' integer-only='false' min='0' max='5' apply-on-change='true' text='Platform Width' hover-hint='Scale the platform on the left and right axis'/>
+          <slider-setting value='platform-length' integer-only='false' min='0' max='5' apply-on-change='true' text='Platform Length' hover-hint='Scale the platform forwards and backwards'/>
+    </vertical>
+
+  <vertical anchor-pos-x='0' anchor-pos-y='-15' horizontal-fit='PreferredSize' vertical-fit='PreferredSize' pad="3" background="round-rect-panel" background-color="#FFFFFFAA">
+    <bool-setting value="enable-plat-ui" apply-on-change='true' text='Enable Platform UI' hover-hint='Move the combo and multiplier to the platform'/>
+    <slider-setting value='ui-pos-x' integer-only='false' min='0' max='5' apply-on-change='true' text='UI X Axis' hover-hint='Move the UI left and right'/>
+    <slider-setting value='ui-pos-y' integer-only='false' min='0' max='5' apply-on-change='true' text='UI Y Axis' hover-hint='Move the UI forwards and backwards'/>
+  </vertical>
 </bg>
