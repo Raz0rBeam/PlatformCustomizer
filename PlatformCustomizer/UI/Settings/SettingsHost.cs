@@ -1,13 +1,11 @@
 ﻿using System;
 using BeatSaberMarkupLanguage;
 using BeatSaberMarkupLanguage.Attributes;
-using BeatSaberMarkupLanguage.Settings;
 using BeatSaberMarkupLanguage.ViewControllers;
 using BeatSaberMarkupLanguage.MenuButtons;
 using HMUI;
-using IPA;
 using PlatformCustomizer.Configuration;
-using UnityEngine;
+
 
 namespace PlatformCustomizer.UI.Settings
 {
@@ -124,6 +122,28 @@ namespace PlatformCustomizer.UI.Settings
                 get => config.UIPositionY;
                 set => config.UIPositionY = value;
             }
+
+            [UIValue("burn-marks")]
+            public bool BurnScale
+            {
+                get => config.SaberBurnMark;
+                set => config.SaberBurnMark = value;
+            }
+
+            [UIValue("enable-feet")]
+            public bool EnableFeet
+            {
+                get => config.Feet;
+                set => config.Feet = value;
+            }
+
+            [UIValue("foot-scale")]
+            public float FootScale
+            {
+                get => config.FootScale;
+                set => config.FootScale = value;
+            }
+
         }
     }
     public class BsmlWrapper

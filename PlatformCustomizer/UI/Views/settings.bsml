@@ -1,13 +1,37 @@
 ﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
-    <vertical anchor-pos-x='0' anchor-pos-y='15' horizontal-fit='PreferredSize' vertical-fit='PreferredSize' pad="3" background="round-rect-panel" background-color="#FFFFFFAA">
-          <bool-setting value='enable' apply-on-change='true' text='Enable Mod'/>
-          <slider-setting value='platform-width' integer-only='false' min='0' max='5' apply-on-change='true' text='Platform Width' hover-hint='Scale the platform on the left and right axis'/>
-          <slider-setting value='platform-length' integer-only='false' min='0' max='5' apply-on-change='true' text='Platform Length' hover-hint='Scale the platform forwards and backwards'/>
-    </vertical>
 
-  <vertical anchor-pos-x='0' anchor-pos-y='-15' horizontal-fit='PreferredSize' vertical-fit='PreferredSize' pad="3" background="round-rect-panel" background-color="#FFFFFFAA">
-    <bool-setting value="enable-plat-ui" apply-on-change='true' text='Enable Platform UI' hover-hint='Move the combo and multiplier to the platform'/>
-    <slider-setting value='ui-pos-x' integer-only='false' min='0' max='5' apply-on-change='true' text='UI X Axis' hover-hint='Move the UI left and right'/>
-    <slider-setting value='ui-pos-y' integer-only='false' min='0' max='5' apply-on-change='true' text='UI Y Axis' hover-hint='Move the UI forwards and backwards'/>
-  </vertical>
+  <tab-selector tab-tag='tabs'/>
+
+  <horizontal anchor-pos-x='0' anchor-pos-y='-35' vertical-fit='PreferredSize' horizontal-fit='PreferredSize'>
+    <text text='PlatformCustomizer v0.0.1 by Raz0rBeam' color='#AEE3A6AA'/>
+  </horizontal>
+  
+    <horizontal preferred-width='100' preferred-height='58' pad-top='8'>
+      <tab tab-name="General" tags="tabs">
+        <vertical horizontal-fit='PreferredSize' vertical-fit='PreferredSize' pad="3" background="round-rect-panel" background-color="#FFFFFFAA">
+        <bool-setting value='enable' apply-on-change='true' text='Enable Mod'/>
+        <slider-setting value='platform-width' integer-only='false' min='0' max='5' apply-on-change='true' text='Platform Width' hover-hint='Scale the platform on the left and right axis'/>
+        <slider-setting value='platform-length' integer-only='false' min='0' max='5' apply-on-change='true' text='Platform Length' hover-hint='Scale the platform forwards and backwards'/>
+        </vertical>
+      </tab>    
+    </horizontal>
+
+  <horizontal preferred-width='100' preferred-height='58' pad-top='8'>
+    <tab tab-name='Feet' tags='tabs'>
+      <vertical horizontal-fit='PreferredSize' vertical-fit='PreferredSize' pad="3" background="round-rect-panel" background-color="#FFFFFFAA">
+        <bool-setting value="enable-feet" apply-on-change="true" text="Enable Feet"/>
+        <slider-setting value="foot-scale" integer-only='false' min='0' max='15' apply-on-change='true' text='Foot Scale' hover-hint='BOW SKEET SKEET SKEET'/>
+      </vertical>
+    </tab>
+  </horizontal>
+
+  <horizontal preferred-width='100' preferred-height='58' pad-top='8'>
+    <tab tab-name='UI Position' tags='tabs'>
+      <vertical horizontal-fit='PreferredSize' vertical-fit='PreferredSize' pad="3" background="round-rect-panel" background-color="#FFFFFFAA">
+        <bool-setting value="enable-plat-ui" apply-on-change='true' text='Enable Platform UI' hover-hint='Move the combo and multiplier to the platform'/>
+        <slider-setting value='ui-pos-x' integer-only='false' min='0' max='5' apply-on-change='true' text='UI X Axis' hover-hint='Move the UI left and right'/>
+        <slider-setting value='ui-pos-y' integer-only='false' min='0' max='5' apply-on-change='true' text='UI Y Axis' hover-hint='Move the UI forwards and backwards'/>
+      </vertical>
+    </tab>
+  </horizontal>
 </bg>

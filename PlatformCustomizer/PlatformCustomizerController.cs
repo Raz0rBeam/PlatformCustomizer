@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
-using SiraUtil.Logging;
 using PlatformCustomizer.Configuration;
-using IPA.Logging;
+
 
 namespace PlatformCustomizer
 {
@@ -20,16 +13,12 @@ namespace PlatformCustomizer
         
         public Vector3 scaleChange;
         public Vector3 fgChange;
-        
-
-        
-
+        public Vector3 footScale;
 
         public void Initialize()
         {
             double xR = config.PlatformWidth;
             double zR = config.PlatformLength;
-            float y = 1;
             double glowx = xR * 1.5;
             if (config.EnableMod == true)
             {
@@ -40,28 +29,47 @@ namespace PlatformCustomizer
                 GameObject.Find("Mirror").transform.localScale = scaleChange;
                 GameObject.Find("RectangleFakeGlow").transform.localScale = fgChange;
                 GameObject.Find("Environment/PlayersPlace/Construction").transform.localScale = scaleChange;
+                if (config.PlatformLength <= 1)
+                {
+                    if (config.PlatformWidth <= 1)
+                    {
+                        GameObject.Find("SaberBurnMarksArea").SetActive(false);
+                        GameObject.Find("SaberBurnMarksParticles").SetActive(false);
+                    }
+                }
+                //if you can make this better than two if statements please let me know.
+                //using both and && made it think one was a float and the other was a bool, so here we are.
+
+                var feet = GameObject.Find("Feet");
+                if (config.Feet == false)
+                {
+                    feet.SetActive(false);
+                }
 
 
-                //GameObject.Find("RectangleFakeGlow")
+                float fN = config.FootScale;
+                footScale = new Vector3(fN, fN, fN);
+                feet.transform.localScale = footScale;
 
                 if (config.MoveUIToPlatform == true)
                 {
                     double uIX = config.UIPositionX;
                     double uIY = config.UIPositionY;
+                    
+                    
+                    var gameObject = GameObject.Find("BasicGameHUD") ?? GameObject.Find("NarrowGameHUD");
 
+                    if (gameObject != null)
+                    {
+                        gameObject.transform.position = new Vector3(0f, 7.01f, 0f);
+                        gameObject.transform.Rotate(90f, 0f, 0f);
+                        gameObject.transform.Find("LeftPanel").transform.position = new Vector3((float)-uIX, 0.01f, (float)uIY);
+                        gameObject.transform.Find("RightPanel").transform.position = new Vector3((float)uIX, 0.01f, (float)uIY);
 
-                    GameObject.Find("BasicGameHUD").transform.position = new Vector3(0f, 7.01f, 0f);
-                    GameObject.Find("BasicGameHUD").transform.Rotate(90f, 0f, 0f);
-                    GameObject.Find("LeftPanel").transform.position = new Vector3((float)-uIX, 0.01f, (float)uIY);
-                    GameObject.Find("RightPanel").transform.position = new Vector3((float)uIX, 0.01f, (float)uIY);
-
-                    GameObject.Find("NarrowGameHUD").transform.position = new Vector3(0f, 7.01f, 0f);
-                    GameObject.Find("NarrowGameHUD").transform.Rotate(90f, 0f, 0f);
-                    GameObject.Find("Environment/NarrowGameHUD/LeftPanel").transform.position = new Vector3((float)-uIX, 0.01f, (float)uIY);
-                    GameObject.Find("Environment/NarrowGameHUD/RightPanel").transform.position = new Vector3((float)uIX, 0.01f, (float)uIY);
-
-                    double x1 = (1 * config.PlatformLength) - 0.35;
-                    GameObject.Find("EnergyPanel").transform.position = new Vector3(0f, 0.01f, (float)x1);
+                        double x1 = (1 * config.PlatformLength) - 0.35;
+                        gameObject.transform.Find("EnergyPanel").transform.position = new Vector3(0f, 0.01f, (float)x1);
+                        return;
+                    }
                     return;
                 }
                 return;
