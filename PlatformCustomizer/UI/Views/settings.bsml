@@ -29,6 +29,7 @@
     <tab tab-name='UI Position' tags='tabs'>
       <vertical horizontal-fit='PreferredSize' vertical-fit='PreferredSize' pad="3" background="round-rect-panel" background-color="#FFFFFFAA">
         <bool-setting value="enable-plat-ui" apply-on-change='true' text='Enable Platform UI' hover-hint='Move the combo and multiplier to the platform'/>
+        <bool-setting value='enable-multiplier-anim' apply-on-change='true' text='Disable Multiplier' hover-hint='I highly suggest enabling this when the UI is on the platform'/>
         <slider-setting value='ui-pos-x' integer-only='false' min='0' max='5' apply-on-change='true' text='UI X Axis' hover-hint='Move the UI left and right'/>
         <slider-setting value='ui-pos-y' integer-only='false' min='0' max='5' apply-on-change='true' text='UI Y Axis' hover-hint='Move the UI forwards and backwards'/>
       </vertical>

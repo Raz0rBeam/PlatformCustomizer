@@ -5,6 +5,10 @@ using BeatSaberMarkupLanguage.ViewControllers;
 using BeatSaberMarkupLanguage.MenuButtons;
 using HMUI;
 using PlatformCustomizer.Configuration;
+using UnityEngine.UI;
+using PlatformCustomizer;
+using UnityEngine;
+using SiraUtil.Web.SiraSync;
 
 
 namespace PlatformCustomizer.UI.Settings
@@ -14,8 +18,6 @@ namespace PlatformCustomizer.UI.Settings
     {
         PluginConfig config = PluginConfig.Instance;
         SettingsHost view = null;
-
-        
 
         protected override void DidActivate(bool firstActivation, bool addedToHeirarchy, bool screenSystemEnabling)
         {
@@ -27,21 +29,17 @@ namespace PlatformCustomizer.UI.Settings
                 if (view == null)
                     view = BeatSaberUI.CreateViewController<SettingsHost>();
 
-                ProvideInitialViewControllers(view);
+                //GameObject.Find("MenuPlatform").SetActive(true);
 
-                /*
-                maybe this can work one day :sadgeturd:
-                var menuStand = GameObject.CreatePrimitive(PrimitiveType.Plane);
-                position = new Vector3(0f, 0.1f, 0f);
-                scale = new Vector3(0.3f, 1f, 0.2f);
-                */
-                 
+                ProvideInitialViewControllers(view);
             }
+
         }
 
         protected override void BackButtonWasPressed(ViewController topViewController)
         {
             BeatSaberUI.MainFlowCoordinator.DismissFlowCoordinator(this, null, ViewController.AnimationDirection.Vertical);
+            //GameObject.Find("MenuPlatform").SetActive(false);
         }
 
         public void ShowFlow()
@@ -72,7 +70,7 @@ namespace PlatformCustomizer.UI.Settings
             }, true));
         }
 
-        [HotReload(RelativePathToLayout = @"..\Settings\SettingsHost")]
+        [HotReload(RelativePathToLayout = @"../Views/settings")]
         [ViewDefinition("PlatformCustomizer.UI.Views.settings.bsml")]
         class SettingsHost : BSMLAutomaticViewController
         {
@@ -121,6 +119,13 @@ namespace PlatformCustomizer.UI.Settings
             {
                 get => config.UIPositionY;
                 set => config.UIPositionY = value;
+            }
+
+            [UIValue("enable-multiplier-anim")]
+            public bool EnableMultiplier
+            {
+                get => config.DisableMultiplier;
+                set => config.DisableMultiplier = value;
             }
 
             [UIValue("burn-marks")]

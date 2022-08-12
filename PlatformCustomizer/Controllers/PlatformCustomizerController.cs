@@ -2,11 +2,11 @@
 using UnityEngine;
 using Zenject;
 using PlatformCustomizer.Configuration;
+using HarmonyLib;
 
 
 namespace PlatformCustomizer
 {
-    
     public class PlatformCustomizerController : IInitializable      
     {
         PluginConfig config = PluginConfig.Instance;
@@ -20,6 +20,9 @@ namespace PlatformCustomizer
             double xR = config.PlatformWidth;
             double zR = config.PlatformLength;
             double glowx = xR * 1.5;
+
+
+           
             if (config.EnableMod == true)
             {
 
@@ -51,13 +54,11 @@ namespace PlatformCustomizer
                 footScale = new Vector3(fN, fN, fN);
                 feet.transform.localScale = footScale;
 
+                var gameObject = GameObject.Find("BasicGameHUD") ?? GameObject.Find("NarrowGameHUD");
                 if (config.MoveUIToPlatform == true)
                 {
                     double uIX = config.UIPositionX;
                     double uIY = config.UIPositionY;
-                    
-                    
-                    var gameObject = GameObject.Find("BasicGameHUD") ?? GameObject.Find("NarrowGameHUD");
 
                     if (gameObject != null)
                     {
@@ -72,7 +73,15 @@ namespace PlatformCustomizer
                     }
                     return;
                 }
-                return;
+
+                GameObject.Find("MultiplierCanvas").SetActive(false);
+                var mCanvas = gameObject.transform.Find("RightPanel/MultiplierCanvas");
+                var disableable = gameObject.transform.Find("RightPanel/RecordingPanel");
+                if (config.DisableMultiplier != false)
+                {
+                    mCanvas.SetParent(disableable);
+                    Plugin.Log.Critical("sohfoihSIOfhiosHef;sheofihjoisefhjioshefiohosehiosheefioseeeeeeeeee");
+                }
             }
             
          
