@@ -10,8 +10,8 @@
       <tab tab-name="General" tags="tabs">
         <vertical horizontal-fit='PreferredSize' vertical-fit='PreferredSize' pad="3" background="round-rect-panel" background-color="#FFFFFFAA">
         <bool-setting value='enable' apply-on-change='true' text='Enable Mod'/>
-        <slider-setting value='platform-width' integer-only='false' min='0' max='5' apply-on-change='true' text='Platform Width' hover-hint='Scale the platform on the left and right axis'/>
-        <slider-setting value='platform-length' integer-only='false' min='0' max='5' apply-on-change='true' text='Platform Length' hover-hint='Scale the platform forwards and backwards'/>
+        <slider-setting value='platform-width' integer-only='false' min='0' max='5' apply-on-change='true' text='Platform Width' hover-hint='Scale the platform on the left and right axis' increment='0.25' show-buttons='true' interactable='~enable'/>
+        <slider-setting value='platform-length' integer-only='false' min='0' max='5' apply-on-change='true' text='Platform Length' hover-hint='Scale the platform forwards and backwards' increment='0.25' show-buttons='true' interactable='~enable'/>
         </vertical>
       </tab>    
     </horizontal>
@@ -19,8 +19,9 @@
   <horizontal preferred-width='100' preferred-height='58' pad-top='8'>
     <tab tab-name='Feet' tags='tabs'>
       <vertical horizontal-fit='PreferredSize' vertical-fit='PreferredSize' pad="3" background="round-rect-panel" background-color="#FFFFFFAA">
-        <bool-setting value="enable-feet" apply-on-change="true" text="Enable Feet"/>
-        <slider-setting value="foot-scale" integer-only='false' min='0' max='15' apply-on-change='true' text='Foot Scale' hover-hint='BOW SKEET SKEET SKEET'/>
+        <bool-setting value="enable-feet" apply-on-change="true" text="Enable Feet" interactable='~enable'/>
+        <slider-setting value="foot-scale" integer-only='false' min='0' max='15' apply-on-change='true' text='Foot Scale' hover-hint='BOW SKEET SKEET SKEET' increment='0.25' show-buttons='true' interactable='~enable'/>
+        <bool-setting value='jordan-mode' apply-on-change='true' text='Jordan Mode' hover-hint='#blamelimbo' interactable='~enable'/>
       </vertical>
     </tab>
   </horizontal>
@@ -28,10 +29,10 @@
   <horizontal preferred-width='100' preferred-height='58' pad-top='8'>
     <tab tab-name='UI Position' tags='tabs'>
       <vertical horizontal-fit='PreferredSize' vertical-fit='PreferredSize' pad="3" background="round-rect-panel" background-color="#FFFFFFAA">
-        <bool-setting value="enable-plat-ui" apply-on-change='true' text='Enable Platform UI' hover-hint='Move the combo and multiplier to the platform'/>
-        <bool-setting value='enable-multiplier-anim' apply-on-change='true' text='Disable Multiplier' hover-hint='I highly suggest enabling this when the UI is on the platform'/>
-        <slider-setting value='ui-pos-x' integer-only='false' min='0' max='5' apply-on-change='true' text='UI X Axis' hover-hint='Move the UI left and right'/>
-        <slider-setting value='ui-pos-y' integer-only='false' min='0' max='5' apply-on-change='true' text='UI Y Axis' hover-hint='Move the UI forwards and backwards'/>
+        <bool-setting value="enable-plat-ui" apply-on-change='true' text='Enable Platform UI' hover-hint='Move the combo and multiplier to the platform' interactable='~enable'/>
+        <bool-setting value='enable-multiplier-anim' apply-on-change='true' text='Disable Multiplier' hover-hint='I highly suggest enabling this when the UI is on the platform' interactable='~enable'/>
+        <slider-setting value='ui-pos-x' integer-only='false' min='0' max='5' apply-on-change='true' text='UI X Axis' hover-hint='Move the UI left and right' increment='0.25' show-buttons='true' interactable='~enable'/>
+        <slider-setting value='ui-pos-y' integer-only='false' min='0' max='5' apply-on-change='true' text='UI Y Axis' hover-hint='Move the UI forwards and backwards' increment='0.25' show-buttons='true' interactable='~enable'/>
       </vertical>
     </tab>
   </horizontal>

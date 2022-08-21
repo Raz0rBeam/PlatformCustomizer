@@ -1,173 +1,117 @@
 ﻿using System;
-using BeatSaberMarkupLanguage;
+using PlatformCustomizer.UI;
 using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.ViewControllers;
-using BeatSaberMarkupLanguage.MenuButtons;
-using HMUI;
 using PlatformCustomizer.Configuration;
-using UnityEngine.UI;
-using PlatformCustomizer;
+using PlatformCustomizer.MenuItems;
+using Zenject;
 using UnityEngine;
-using SiraUtil.Web.SiraSync;
 
 
 namespace PlatformCustomizer.UI.Settings
 {
-    
-    class SettingsHostFlowCoordinator : FlowCoordinator
+
+    [HotReload(RelativePathToLayout = @"../Views/settings")]
+    [ViewDefinition("PlatformCustomizer.UI.Views.settings.bsml")]
+    class SettingsHost : BSMLAutomaticViewController
     {
         PluginConfig config = PluginConfig.Instance;
-        SettingsHost view = null;
+        
 
-        protected override void DidActivate(bool firstActivation, bool addedToHeirarchy, bool screenSystemEnabling)
+        #region UIValues
+        [UIValue("enable")]
+        public bool Enable
         {
-            if (firstActivation)
+            get => config.EnableMod;
+            set
             {
-                SetTitle("Platform Customizer");
-                showBackButton = true;
-
-                if (view == null)
-                    view = BeatSaberUI.CreateViewController<SettingsHost>();
-
-                //GameObject.Find("MenuPlatform").SetActive(true);
-
-                ProvideInitialViewControllers(view);
+                config.EnableMod = value;
+                NotifyPropertyChanged();
             }
-
         }
 
-        protected override void BackButtonWasPressed(ViewController topViewController)
+        [UIValue("platform-width")]
+        public float PlatformWidth
         {
-            BeatSaberUI.MainFlowCoordinator.DismissFlowCoordinator(this, null, ViewController.AnimationDirection.Vertical);
-            //GameObject.Find("MenuPlatform").SetActive(false);
+            get => config.PlatformWidth;
+            set
+            {
+                config.PlatformWidth = value;
+                NotifyPropertyChanged();
+            }
         }
 
-        public void ShowFlow()
+        [UIValue("platform-length")]
+        public float PlatformLength
         {
-            var _parentFlow = BeatSaberUI.MainFlowCoordinator.YoungestChildFlowCoordinatorOrSelf();
-
-            BeatSaberUI.PresentFlowCoordinator(_parentFlow, this);
+            get => config.PlatformLength;
+            set 
+            {
+                config.PlatformLength = value;
+                NotifyPropertyChanged();
+            }
         }
 
-        static SettingsHostFlowCoordinator flow = null;
-        static MenuButton button;
-
-        public static void Deinit()
+        [UIValue("enable-plat-ui")]
+        public bool EnablePlatUI
         {
-            if (button != null)
-                MenuButtons.instance.UnregisterButton(button);
+            get => config.MoveUIToPlatform;
+            set => config.MoveUIToPlatform = value;
         }
 
-        public static void Initialize()
+        [UIValue("ui-pos-x")]
+        public float UIPosX
         {
-            MenuButtons.instance.RegisterButton(button ??= new MenuButton("Platform Customizer", "I Barely Even Know Her!", () =>
-            {
-                if (flow == null)
-                    flow = BeatSaberUI.CreateFlowCoordinator<SettingsHostFlowCoordinator>();
-
-
-                flow.ShowFlow();
-            }, true));
+            get => config.UIPositionX;
+            set => config.UIPositionX = value;
         }
 
-        [HotReload(RelativePathToLayout = @"../Views/settings")]
-        [ViewDefinition("PlatformCustomizer.UI.Views.settings.bsml")]
-        class SettingsHost : BSMLAutomaticViewController
+        [UIValue("ui-pos-y")]
+        public float UIPosY
         {
-            PluginConfig config = PluginConfig.Instance;
-
-
-            [UIValue("enable")]
-            public bool Enable
-            {
-                get => config.EnableMod;
-                set => config.EnableMod = value;
-
-            }
-
-            [UIValue("platform-width")]
-            public float PlatformWidth
-            {
-                
-                get => config.PlatformWidth;
-                set => config.PlatformWidth = value;
-            }
-
-            [UIValue("platform-length")]
-            public float PlatformLength
-            {
-                get => config.PlatformLength;
-                set => config.PlatformLength = value;
-            }
-
-            [UIValue("enable-plat-ui")]
-            public bool EnablePlatUI
-            {
-                get => config.MoveUIToPlatform;
-                set => config.MoveUIToPlatform = value;
-            }
-
-            [UIValue("ui-pos-x")]
-            public float UIPosX
-            {
-                get => config.UIPositionX;
-                set => config.UIPositionX = value;
-            }
-
-            [UIValue("ui-pos-y")]
-            public float UIPosY
-            {
-                get => config.UIPositionY;
-                set => config.UIPositionY = value;
-            }
-
-            [UIValue("enable-multiplier-anim")]
-            public bool EnableMultiplier
-            {
-                get => config.DisableMultiplier;
-                set => config.DisableMultiplier = value;
-            }
-
-            [UIValue("burn-marks")]
-            public bool BurnScale
-            {
-                get => config.SaberBurnMark;
-                set => config.SaberBurnMark = value;
-            }
-
-            [UIValue("enable-feet")]
-            public bool EnableFeet
-            {
-                get => config.Feet;
-                set => config.Feet = value;
-            }
-
-            [UIValue("foot-scale")]
-            public float FootScale
-            {
-                get => config.FootScale;
-                set => config.FootScale = value;
-            }
-
+            get => config.UIPositionY;
+            set => config.UIPositionY = value;
         }
-    }
-    public class BsmlWrapper
-    {
-        static readonly bool hasBsml = IPA.Loader.PluginManager.GetPluginFromId("BeatSaberMarkupLanguage") != null;
 
-        public static void EnableUI()
+        [UIValue("enable-multiplier-anim")]
+        public bool EnableMultiplier
         {
-            void wrap() => SettingsHostFlowCoordinator.Initialize();
-
-            if (hasBsml)
-                wrap();
+            get => config.DisableMultiplier;
+            set => config.DisableMultiplier = value;
         }
-        public static void DisableUI()
+
+        [UIValue("enable-feet")]
+        public bool EnableFeet
         {
-            void wrap() => SettingsHostFlowCoordinator.Deinit();
-
-            if (hasBsml)
-                wrap();
+            get => config.Feet;
+            set 
+            {
+                config.Feet = value;
+                NotifyPropertyChanged();
+            }
         }
+
+        [UIValue("jordan-mode")]
+        public bool JordanMode
+        {
+            get => config.JordanMode;
+            set 
+            {
+                config.JordanMode = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        [UIValue("foot-scale")]
+        public float FootScale
+        {
+            get => config.FootScale;
+            set
+            {
+                config.FootScale = value;
+                NotifyPropertyChanged();
+            }
+        }
+        #endregion
     }
 }

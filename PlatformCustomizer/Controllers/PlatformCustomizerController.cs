@@ -1,13 +1,14 @@
-﻿using System;
+﻿using PlatformCustomizer.Configuration;
 using UnityEngine;
 using Zenject;
-using PlatformCustomizer.Configuration;
-using HarmonyLib;
+using BeatSaberMarkupLanguage;
+using System.Reflection;
+using System;
+using PlatformCustomizer;
 
-
-namespace PlatformCustomizer
+namespace PlatformCustomizer.Controllers
 {
-    public class PlatformCustomizerController : IInitializable      
+    public class PlatformCustomizerController : IInitializable
     {
         PluginConfig config = PluginConfig.Instance;
         
@@ -21,11 +22,8 @@ namespace PlatformCustomizer
             double zR = config.PlatformLength;
             double glowx = xR * 1.5;
 
-
-           
             if (config.EnableMod == true)
             {
-
                 scaleChange = new Vector3((float)xR, 1, (float)zR);
                 fgChange = new Vector3((float)glowx, (float)zR, (float)zR);
 
@@ -49,12 +47,26 @@ namespace PlatformCustomizer
                     feet.SetActive(false);
                 }
 
-
                 float fN = config.FootScale;
                 footScale = new Vector3(fN, fN, fN);
                 feet.transform.localScale = footScale;
+                if (config.JordanMode == true)
+                {
+                    feet.transform.localScale = new Vector3(0f, 0f, 0f);
+                    
+                    Plugin.instantiate.SetActive(true);
+                }
 
                 var gameObject = GameObject.Find("BasicGameHUD") ?? GameObject.Find("NarrowGameHUD");
+
+                if (config.DisableMultiplier == true)
+                {
+                    GameObject.Find("RightPanel/MultiplierCanvas").SetActive(false);
+                    var mCanvas = gameObject.transform.Find("RightPanel/MultiplierCanvas");
+                    var disableable = gameObject.transform.Find("RightPanel/RecordingPanel");
+                    mCanvas.SetParent(disableable);
+                }
+
                 if (config.MoveUIToPlatform == true)
                 {
                     double uIX = config.UIPositionX;
@@ -71,22 +83,8 @@ namespace PlatformCustomizer
                         gameObject.transform.Find("EnergyPanel").transform.position = new Vector3(0f, 0.01f, (float)x1);
                         return;
                     }
-                    return;
-                }
-
-                GameObject.Find("MultiplierCanvas").SetActive(false);
-                var mCanvas = gameObject.transform.Find("RightPanel/MultiplierCanvas");
-                var disableable = gameObject.transform.Find("RightPanel/RecordingPanel");
-                if (config.DisableMultiplier != false)
-                {
-                    mCanvas.SetParent(disableable);
-                    Plugin.Log.Critical("sohfoihSIOfhiosHef;sheofihjoisefhjioshefiohosehiosheefioseeeeeeeeee");
                 }
             }
-            
-         
         }
-
-
     }
 }
