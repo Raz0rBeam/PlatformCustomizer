@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using PlatformCustomizer.Configuration;
 using BeatSaberMarkupLanguage;
 using Zenject;
 using UnityEngine;
 using Object = UnityEngine.Object;
-using System.IO;
+using System.Collections;
 using PlatformCustomizer.Miscellaneous;
 
 namespace PlatformCustomizer.MenuItems
@@ -18,8 +17,9 @@ namespace PlatformCustomizer.MenuItems
         public Vector3 footScale;
 
         private bool _instantiatedPlatform;
-        private GameObject _menuPlatform;
-        private readonly PlatformGrabber _platformGrabber;
+        public GameObject _menuPlatform;
+        public GameObject _platform;
+        private PlatformGrabber _platformGrabber;
 
         private Vector3 position;
         private Vector3 scale;
@@ -27,35 +27,47 @@ namespace PlatformCustomizer.MenuItems
         public MenuFloorManager(PlatformGrabber platformGrabber)
         {
             _platformGrabber = platformGrabber;
+            
         }
-        
+
         public void Initialize()
         {
-            //var loadedAssetBundle = AssetBundle.LoadFromMemory(Utilities.GetResource(Assembly.GetExecutingAssembly(), "PlatformCustomizer.Assets.menuplatform"));
-            //_menuPlatform = loadedAssetBundle.LoadAllAssets<GameObject>();
-            //loadedAssetBundle.Unload(false);
-
             if (_platformGrabber.completed)
             {
-                if (config.EnableMenuPlatform == true)
-                {
-                    InstantiatePlatform();
-                    return;
-                }
+                InstantiatePlatform();
+                Plugin.Log.Info("AHIFUIH");
                 return;
             }
+            
+
+            _platformGrabber.CompletedEvent += InstantiatePlatform;
+
+           
         }
+
 
         private void InstantiatePlatform()
         {
+            _platformGrabber.CompletedEvent -= InstantiatePlatform;
+            Plugin.Log.Critical("Instantiating Platform");
 
-
-            _menuPlatform = new GameObject()
+            _menuPlatform = new GameObject
             {
                 name = "MenuPlatform"
             };
+            
+            _platform = Object.Instantiate(PlatformGrabber.TemplatePlatform, new Vector3(0f, 0.01f, 0f), Quaternion.Euler(new Vector3(0f, 0f)), _menuPlatform.transform);
 
-            _menuPlatform = Object.Instantiate(PlatformGrabber.TemplatePlatform, new Vector3(0f, 0.1f, 0f), Quaternion.Euler(new Vector3(0f, 0f)), _menuPlatform.transform);
+            var menuPlatform = GameObject.Find("MenuPlatform");
+            if (config.EnableMenuPlatform == true)
+            {
+                menuPlatform.SetActive(true);
+            }
+            else
+            {
+                menuPlatform.SetActive(false);
+            }
+
             _instantiatedPlatform = true;
         }
         
@@ -68,3 +80,7 @@ namespace PlatformCustomizer.MenuItems
 
     }
 }
+
+//var loadedAssetBundle = AssetBundle.LoadFromMemory(Utilities.GetResource(Assembly.GetExecutingAssembly(), "PlatformCustomizer.Assets.menuplatform"));
+//_menuPlatform = loadedAssetBundle.LoadAllAssets<GameObject>();
+//loadedAssetBundle.Unload(false);

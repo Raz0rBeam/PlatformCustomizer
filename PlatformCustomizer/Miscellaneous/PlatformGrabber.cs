@@ -9,8 +9,8 @@ namespace PlatformCustomizer.Miscellaneous
 	// https://github.com/Exomanz/UITweaks/blob/sira3/UITweaks/Utilities/SettingsPanelObjectGrabber.cs
 	public class PlatformGrabber : MonoBehaviour
 	{
-		public bool completed;
-		public static GameObject? TemplatePlatform;
+		public bool completed = false;
+		public static GameObject TemplatePlatform;
 
 		public Action? CompletedEvent;
 
@@ -26,6 +26,7 @@ namespace PlatformCustomizer.Miscellaneous
 			{
 				if (completed)
 				{
+					Plugin.Log.Critical("sdifhioSHJERIOFHJ");
 					yield break;
 				}
 
@@ -54,6 +55,7 @@ namespace PlatformCustomizer.Miscellaneous
 
 				completed = true;
 				CompletedEvent?.Invoke();
+				Plugin.Log.Critical("sdifhioSHJERIOFHJ");
 			}
 		}
 	}

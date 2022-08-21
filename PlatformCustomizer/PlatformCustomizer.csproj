@@ -150,16 +150,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomFeet\CustomFeetDir.cs" />
+    <Compile Include="CustomFeet\RemoteLocation.cs" />
     <Compile Include="HarmonyPatches\DisableMultiplier.cs" />
     <Compile Include="Installers\PCMenuInstaller.cs" />
     <Compile Include="Installers\PCInstaller.cs" />
+    <Compile Include="MenuItems\DisableItems.cs" />
     <Compile Include="MenuItems\MenuFloorManager.cs" />
+    <Compile Include="Miscellaneous\CustomListItem.cs" />
     <Compile Include="Miscellaneous\PlatformGrabber.cs" />
-    <Compile Include="Miscellaneous\ResourcesLoader.cs" />
+    <Compile Include="Miscellaneous\PathTools.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Configuration\PluginConfig.cs" />
     <Compile Include="Controllers\PlatformCustomizerController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\FlowCoordinator.cs" />
     <Compile Include="UI\Settings\SettingsHost.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -169,8 +174,8 @@
     <None Include="..\.editorconfig">
       <Link>.editorconfig</Link>
     </None>
-    <EmbeddedResource Include="Assets\menuplatform" />
-    <EmbeddedResource Include="Assets\unlit.shader" />
+    <EmbeddedResource Include="Assets\sh_custom_unlit.shader" />
+    <EmbeddedResource Include="Assets\jordans" />
     <None Include="Directory.Build.props" Condition="Exists('Directory.Build.props')" />
     <None Include="Directory.Build.targets" Condition="Exists('Directory.Build.targets')" />
     <None Include="PlatformCustomizer.csproj.user" Condition="Exists('PlatformCustomizer.csproj.user')" />
