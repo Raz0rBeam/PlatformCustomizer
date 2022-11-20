@@ -8,7 +8,7 @@ using PlatformCustomizer;
 
 namespace PlatformCustomizer.Controllers
 {
-    public class PlatformCustomizerController : IInitializable
+    public class PlatformCustomizerController : IInitializable, IDisposable
     {
         PluginConfig config = PluginConfig.Instance;
         
@@ -80,11 +80,15 @@ namespace PlatformCustomizer.Controllers
                         gameObject.transform.Find("RightPanel").transform.position = new Vector3((float)uIX, 0.01f, (float)uIY);
 
                         double x1 = (1 * config.PlatformLength) - 0.35;
-                        gameObject.transform.Find("EnergyPanel").transform.position = new Vector3(0f, 0.01f, (float)x1);
+                        gameObject.transform.Find("EnergyPanel").transform.position = new Vector3(0f, 0.01f, config.EnergyPanelDistance);
                         return;
                     }
                 }
             }
+        }
+        public void Dispose()
+        {
+            Plugin.instantiate.SetActive(false);
         }
     }
 }

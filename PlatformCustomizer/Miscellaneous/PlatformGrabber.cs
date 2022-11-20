@@ -13,6 +13,7 @@ namespace PlatformCustomizer.Miscellaneous
 		public static GameObject TemplatePlatform;
 
 		public Action? CompletedEvent;
+		
 
 		public void Start()
 		{
@@ -26,7 +27,6 @@ namespace PlatformCustomizer.Miscellaneous
 			{
 				if (completed)
 				{
-					Plugin.Log.Critical("sdifhioSHJERIOFHJ");
 					yield break;
 				}
 
@@ -40,11 +40,12 @@ namespace PlatformCustomizer.Miscellaneous
 				{
 					if (gamerObject.name == "Environment")
 					{
-						TemplatePlatform = gamerObject.transform.Find("PlayersPlace").gameObject;
+						TemplatePlatform = gamerObject.transform.Find("Construction").gameObject;
 
 						break;
 					}
 				}
+
 			}
 			finally
 			{
@@ -55,7 +56,6 @@ namespace PlatformCustomizer.Miscellaneous
 
 				completed = true;
 				CompletedEvent?.Invoke();
-				Plugin.Log.Critical("sdifhioSHJERIOFHJ");
 			}
 		}
 	}

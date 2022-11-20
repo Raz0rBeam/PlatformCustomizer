@@ -15,22 +15,7 @@ namespace PlatformCustomizer
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<PlatformCustomizerController>().AsSingle();
-            BindRemoteJordans();
-        }
-
-        private void BindRemoteJordans()
-        {
-            BindJordans(new RemoteLocation.InitData
-            {
-                Name = "menuplatform",
-                RemoteLocation = "https://github.com/Raz0rBeam/PlatformCustomizer/blob/master/PlatformCustomizer/Assets/menuplatform?raw=true",
-                Filename = "menuplatform",
-            });
-        }
-
-        private void BindJordans(RemoteLocation.InitData data)
-        {
-            Container.Bind<RemoteLocation>().To<RemoteLocation>().AsCached().WithArguments(data);
+            Container.BindInterfacesAndSelfTo<TexChanger>().AsSingle();
         }
     }
 }

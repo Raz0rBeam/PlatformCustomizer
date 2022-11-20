@@ -35,14 +35,9 @@ namespace PlatformCustomizer.MenuItems
             if (_platformGrabber.completed)
             {
                 InstantiatePlatform();
-                Plugin.Log.Info("AHIFUIH");
                 return;
             }
-            
-
             _platformGrabber.CompletedEvent += InstantiatePlatform;
-
-           
         }
 
 
@@ -74,13 +69,9 @@ namespace PlatformCustomizer.MenuItems
 
         public void Dispose()
         {
-            //AssetBundle.UnloadAllAssetBundles(true);
             _platformGrabber.CompletedEvent -= InstantiatePlatform;
+            Object.Destroy(_menuPlatform);
         }
 
     }
 }
-
-//var loadedAssetBundle = AssetBundle.LoadFromMemory(Utilities.GetResource(Assembly.GetExecutingAssembly(), "PlatformCustomizer.Assets.menuplatform"));
-//_menuPlatform = loadedAssetBundle.LoadAllAssets<GameObject>();
-//loadedAssetBundle.Unload(false);

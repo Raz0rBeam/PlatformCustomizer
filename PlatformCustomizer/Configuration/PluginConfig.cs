@@ -16,6 +16,7 @@ namespace PlatformCustomizer.Configuration
         public virtual bool MoveUIToPlatform { get; set; } = true;
         public virtual float UIPositionX { get; set; } = 2;
         public virtual float UIPositionY { get; set; } = 2;
+        public virtual float EnergyPanelDistance { get; set; } = 1.5f;
         public virtual bool DisableMultiplier { get; set; } = false;
     }      
 }

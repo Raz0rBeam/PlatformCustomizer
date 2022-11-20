@@ -8,6 +8,7 @@ using PlatformCustomizer.UI.Settings;
 using PlatformCustomizer.UI;
 using PlatformCustomizer.Miscellaneous;
 using PlatformCustomizer.MenuItems;
+using PlatformCustomizer.CustomFeet;
 
 namespace PlatformCustomizer
 {
@@ -15,11 +16,11 @@ namespace PlatformCustomizer
     {
         public override void InstallBindings()
         {
-           //Container.BindInterfacesAndSelfTo<MenuFloorManager>().AsSingle();
-           //Container.Bind<PlatformGrabber>().FromNewComponentOnNewGameObject().AsSingle();
+            //Container.BindInterfacesAndSelfTo<MenuFloorManager>().AsCached();
+           // Container.Bind<PlatformGrabber>().FromNewComponentOnNewGameObject().AsCached();
            Container.BindInterfacesTo<SettingsHostFlowCoordinator>().AsSingle();
            Container.BindInterfacesTo<SettingsHost>().AsSingle();
-           Container.BindInterfacesAndSelfTo<DisableItems>().AsSingle();
+           Container.BindInterfacesAndSelfTo<TexChanger>().AsSingle();
         }
     }
 }

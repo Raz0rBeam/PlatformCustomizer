@@ -1,9 +1,11 @@
-﻿using IPA;
+﻿using System.Collections;
+using IPA;
 using IPA.Config.Stores;
 using IPALogger = IPA.Logging.Logger;
 using SiraUtil.Zenject;
 using PlatformCustomizer.Configuration;
 using PlatformCustomizer.UI;
+using PlatformCustomizer.Installers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using HarmonyLib;
@@ -20,39 +22,28 @@ namespace PlatformCustomizer
         internal static Harmony harmony { get; private set; }
         public GameObject feet = GameObject.Find("Feet");
         public GameObject _gameObject;
-        public Object _jordans; 
+        public Object _jordans;
+        public GameObject MenuPlat;
+        readonly PluginConfig config = PluginConfig.Instance;
+        public GameObject menuPlatParent;
 
         [Init]
-        public void Init(IPALogger logger, Zenjector zenject, IPA.Config.Config conf, Location location, SceneManager sceneManager)
+        public void Init(Zenjector zenject, IPALogger logger, IPA.Config.Config conf)
         {
-            Instance = this;
+            //Instance = this;
             Log = logger;
             Log.Info("PlatformCustomizer initialized.");
-            Instance = this;
+            //Instance = this;
             PluginConfig.Instance = conf.Generated<PluginConfig>();
-            PluginConfig config = PluginConfig.Instance;
 
-            SceneManager.activeSceneChanged += SceneManager_activeSceneChanged; 
+            //menuPlatParent.name = "MenuPlatform";
+
+            //SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
 
             zenject.Install<PCInstaller>(Location.StandardPlayer);
             zenject.Install<PCMenuInstaller>(Location.Menu);
+            zenject.Install<MultiplayerKiller>(Location.MultiPlayer);
 
-            #region Yippee!
-            Log.Info("Yippee!");
-            Log.Info("Yippee!");
-            Log.Info("Yippee!");
-            Log.Info("Yippee!");
-            int numberRaw = new System.Random().Next(1, 5);
-            string number = numberRaw.ToString();
-            if (numberRaw == 2)
-            {
-                Log.Info("WAHHHHH");
-            }
-            else
-            {
-                Log.Info("Yippee!");
-            }
-            #endregion
         }
 
         private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
@@ -60,6 +51,19 @@ namespace PlatformCustomizer
             if (arg1.name == "MainMenu" && isDone == false)
             {
                 LoadAssets();
+                LoadScenes();
+                try
+                {
+                    Object.Instantiate(menuPlatParent, new Vector3(0f, 0f, 0f), Quaternion.Euler(new Vector3(0f, 0f)));
+                    Object.Instantiate(MenuPlat, new Vector3(0f, 0.01f, 0f), Quaternion.Euler(new Vector3(0f, 0f)), menuPlatParent.transform);
+                    
+                    return;
+                }
+                finally
+                {
+                    SceneManager.UnloadSceneAsync("BigMirrorEnvironment");
+                }
+
             }
         }
 
@@ -83,6 +87,7 @@ namespace PlatformCustomizer
         public AssetBundle loadedAssetBundle = AssetBundle.LoadFromMemory(Utilities.GetResource(Assembly.GetExecutingAssembly(), "PlatformCustomizer.Assets.jordans"));
         public bool isDone = false;
         public static GameObject instantiate;
+
         public void LoadAssets()
         {
             _gameObject = loadedAssetBundle.LoadAsset<GameObject>("Jordans");
@@ -93,6 +98,24 @@ namespace PlatformCustomizer
             instantiate.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
             instantiate.SetActive(false);
             isDone = true;
+        }
+
+        public void LoadScenes()
+        {
+            SceneManager.LoadSceneAsync("BigMirrorEnvironment");
+            new WaitForSecondsRealtime(0.1f);
+            foreach (var platFinder in Resources.FindObjectsOfTypeAll<BloomFogEnvironment>())
+            {
+                if (platFinder.name == "Environment")
+                {
+                    MenuPlat = platFinder.transform.Find("PlayersPlace").gameObject;
+                    for (int i = 0; i < 25; i++)
+                    {
+                        Log.Critical("oshefoihjioefhoihoeifhoehofhosef");
+                    }
+                    break;
+                }
+            }
         }
     }
 }
