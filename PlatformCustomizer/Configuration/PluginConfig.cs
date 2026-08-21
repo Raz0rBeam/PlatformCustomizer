@@ -10,6 +10,7 @@ namespace PlatformCustomizer.Configuration
         public virtual bool EnableMenuPlatform { get; set; } = true;
         public virtual float PlatformWidth { get; set; } = 3;
         public virtual float PlatformLength { get; set; } = 3;
+        public virtual bool SaberBurnMarks { get; set; } = true;
         public virtual bool Feet { get; set; } = true;
         public virtual float FootScale { get; set; } = 1;
         public virtual bool MoveUIToPlatform { get; set; } = true;

@@ -8,10 +8,11 @@
   
     <horizontal preferred-width='100' preferred-height='58' pad-top='8'>
       <tab tab-name="General" tags="tabs">
-        <vertical horizontal-fit='PreferredSize' vertical-fit='PreferredSize' pad="3" background="round-rect-panel" background-color="#FFFFFFAA">
+        <vertical horizontal-fit='PreferredSize' vertical-fit='PreferredSize' pad="4" background="round-rect-panel" background-color="#FFFFFFAA">
         <bool-setting value='enable' apply-on-change='true' text='Enable Mod'/>
         <slider-setting value='platform-width' integer-only='false' min='0' max='5' apply-on-change='true' text='Platform Width' hover-hint='Scale the platform on the left and right axis' increment='0.25' show-buttons='true' interactable='~enable'/>
         <slider-setting value='platform-length' integer-only='false' min='0' max='5' apply-on-change='true' text='Platform Length' hover-hint='Scale the platform forwards and backwards' increment='0.25' show-buttons='true' interactable='~enable'/>
+        <bool-setting value='saber-burn-marks' apply-on-change='true' text='Saber Burn Marks' hover-hint='Enable or disable the burn marks that appear when the saber intersects with the platform'/>
         </vertical>
       </tab>    
     </horizontal>

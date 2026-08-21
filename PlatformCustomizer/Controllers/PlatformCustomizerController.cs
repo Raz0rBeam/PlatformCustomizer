@@ -4,7 +4,8 @@ using Zenject;
 using BeatSaberMarkupLanguage;
 using System.Reflection;
 using System;
-using PlatformCustomizer;
+using System.Threading.Tasks;
+using IPALogger = IPA.Logging.Logger;
 
 namespace PlatformCustomizer.Controllers
 {
@@ -15,6 +16,7 @@ namespace PlatformCustomizer.Controllers
         public Vector3 scaleChange;
         public Vector3 fgChange;
         public Vector3 footScale;
+        internal static IPALogger Log { get; private set; }
 
         public void Initialize()
         {
@@ -30,11 +32,36 @@ namespace PlatformCustomizer.Controllers
                 GameObject.Find("Mirror").transform.localScale = scaleChange;
                 GameObject.Find("RectangleFakeGlow").transform.localScale = fgChange;
                 GameObject.Find("Environment/PlayersPlace/Construction").transform.localScale = scaleChange;
-                GameObject.Find("Environment/PlatersPlace/SaberBurnMarksArea").SetActive(true);
 
 
-                //if you can make this better than two if statements please let me know.
-                //using both and && made it think one was a float and the other was a bool, so here we are.
+
+                if (config.SaberBurnMarks == true)
+                {
+                    GameObject.Find("Environment/PlayersPlace/SaberBurnMarksArea").SetActive(true);
+                    if (xR >= 1.5 && zR >= 1.5)
+                    {
+                        GameObject.Find("Environment/PlayersPlace/SaberBurnMarksArea").transform.localScale = new Vector3((float)1.5, 1, (float)1.5);
+                    }
+                    if (xR < 1.5 && zR < 1.5)
+                    {
+                        GameObject.Find("Environment/PlayersPlace/SaberBurnMarksArea").transform.localScale = scaleChange;
+                    }
+                    if (xR >= 1.5 ^ zR >= 1.5)
+                    {
+                        if (xR >= 1.5)
+                        {
+                            GameObject.Find("Environment/PlayersPlace/SaberBurnMarksArea").transform.localScale = new Vector3((float)1.5, 1, (float)zR);
+                        }
+                        if (zR >= 1.5)
+                        {
+                            GameObject.Find("Environment/PlayersPlace/SaberBurnMarksArea").transform.localScale = new Vector3((float)xR, 1, (float)1.5);
+                        }
+                    }
+                }
+                else
+                {
+                    GameObject.Find("Environment/PlayersPlace/SaberBurnMarksArea").SetActive(false);
+                }
 
                 var feet = GameObject.Find("Feet");
                 if (config.Feet == false)
@@ -77,7 +104,17 @@ namespace PlatformCustomizer.Controllers
                 {
                     GameObject.Find("MultiplierCanvas").SetActive(false);
                 }
+                Log.Info("before call");
+                SaberBurnMarks();
             }
+        }
+
+        async void SaberBurnMarks()
+        {
+            Log.Info("called saber burn");
+            await Task.Delay(20000);
+            Log.Debug("SaberBurnMarks should be on");
+            GameObject.Find("SaberBurnMarksArea").SetActive(true);
         }
         public void Dispose()
         {

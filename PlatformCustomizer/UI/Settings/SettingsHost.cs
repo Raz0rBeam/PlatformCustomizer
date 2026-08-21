@@ -54,6 +54,17 @@ namespace PlatformCustomizer.UI.Settings
             }
         }
 
+        [UIValue("saber-burn-marks")]
+        public bool SaberBurnMarks
+        {
+            get => config.SaberBurnMarks;
+            set
+            {
+                config.SaberBurnMarks = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         [UIValue("enable-plat-ui")]
         public bool EnablePlatUI
         {
