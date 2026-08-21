@@ -30,14 +30,9 @@ namespace PlatformCustomizer.Controllers
                 GameObject.Find("Mirror").transform.localScale = scaleChange;
                 GameObject.Find("RectangleFakeGlow").transform.localScale = fgChange;
                 GameObject.Find("Environment/PlayersPlace/Construction").transform.localScale = scaleChange;
-                if (config.PlatformLength <= 1)
-                {
-                    if (config.PlatformWidth <= 1)
-                    {
-                        GameObject.Find("SaberBurnMarksArea").SetActive(false);
-                        GameObject.Find("SaberBurnMarksParticles").SetActive(false);
-                    }
-                }
+                GameObject.Find("Environment/PlatersPlace/SaberBurnMarksArea").SetActive(true);
+
+
                 //if you can make this better than two if statements please let me know.
                 //using both and && made it think one was a float and the other was a bool, so here we are.
 
@@ -50,12 +45,6 @@ namespace PlatformCustomizer.Controllers
                 float fN = config.FootScale;
                 footScale = new Vector3(fN, fN, fN);
                 feet.transform.localScale = footScale;
-                if (config.JordanMode == true)
-                {
-                    feet.transform.localScale = new Vector3(0f, 0f, 0f);
-                    
-                    Plugin.instantiate.SetActive(true);
-                }
 
                 var gameObject = GameObject.Find("BasicGameHUD") ?? GameObject.Find("NarrowGameHUD");
 
@@ -84,11 +73,15 @@ namespace PlatformCustomizer.Controllers
                         return;
                     }
                 }
+                if (config.DisableMultiplier == true)
+                {
+                    GameObject.Find("MultiplierCanvas").SetActive(false);
+                }
             }
         }
         public void Dispose()
         {
-            Plugin.instantiate.SetActive(false);
+            return;
         }
     }
 }

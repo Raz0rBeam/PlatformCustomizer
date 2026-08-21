@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Zenject;
+﻿using Zenject;
 using PlatformCustomizer.UI.Settings;
 using PlatformCustomizer.UI;
-using PlatformCustomizer.Miscellaneous;
-using PlatformCustomizer.MenuItems;
 using PlatformCustomizer.CustomFeet;
+using PlatformCustomizer.Managers;
 
 namespace PlatformCustomizer
 {
@@ -16,11 +10,10 @@ namespace PlatformCustomizer
     {
         public override void InstallBindings()
         {
-            //Container.BindInterfacesAndSelfTo<MenuFloorManager>().AsCached();
-           // Container.Bind<PlatformGrabber>().FromNewComponentOnNewGameObject().AsCached();
-           Container.BindInterfacesTo<SettingsHostFlowCoordinator>().AsSingle();
-           Container.BindInterfacesTo<SettingsHost>().AsSingle();
+           Container.Bind<SettingsHostFlowCoordinator>().FromNewComponentOnNewGameObject().AsSingle();
+           Container.Bind<SettingsHost>().FromNewComponentAsViewController().AsSingle();
            Container.BindInterfacesAndSelfTo<TexChanger>().AsSingle();
+           Container.BindInterfacesTo<MenuButtonManager>().AsSingle();
         }
     }
 }

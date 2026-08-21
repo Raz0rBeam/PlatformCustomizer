@@ -104,17 +104,6 @@ namespace PlatformCustomizer.UI.Settings
             }
         }
 
-        [UIValue("jordan-mode")]
-        public bool JordanMode
-        {
-            get => config.JordanMode;
-            set 
-            {
-                config.JordanMode = value;
-                NotifyPropertyChanged();
-            }
-        }
-
         [UIValue("foot-scale")]
         public float FootScale
         {

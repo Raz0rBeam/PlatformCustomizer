@@ -17,7 +17,7 @@ namespace PlatformCustomizer.CustomFeet
              loadTexture.sprite = blankSprite;*/
 
             var newFeet = new GameObject("ReplacedFeet");
-            newFeet.GetComponent<Tex>
+            //newFeet.GetComponent<Tex>
         }
     }
 }
